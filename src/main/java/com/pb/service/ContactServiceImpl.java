@@ -2,6 +2,7 @@ package com.pb.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +38,13 @@ public class ContactServiceImpl implements ContactService {
 	@Override
 	@Transactional(readOnly = true)
 	public List<Contact> findAllContacts() {
-		//return repository.findAll();
-		return null;
+		List<ContactEntity> contactsEntity = repository.findAll();
+		List<Contact> contacts = contactsEntity.stream().map(entity->{
+			Contact contact = new Contact();
+			BeanUtils.copyProperties(entity, contact);
+			return contact;
+		}).collect(Collectors.toList());
+		return contacts;
 	}
 
 	@Override

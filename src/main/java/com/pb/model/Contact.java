@@ -3,12 +3,12 @@ package com.pb.model;
 import java.sql.Date;
 
 public class Contact {
-	protected Integer id;
-	protected String name;
-	protected String emailAddress;
-	protected String mobileNo;
-	protected Date createdDate;
-	protected Date updatedDate;
+	private Integer id;
+	private String name;
+	private String emailAddress;
+	private String mobileNo;
+	private Date createdDate;
+	private Date updatedDate;
 
 	public Integer getId() {
 		return id;

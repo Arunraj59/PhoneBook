@@ -32,5 +32,6 @@
 			</tr>
 		</table>
 	</form:form>
+	<a href="all-contacts">View All Contacts</a>
 </body>
 </html>
