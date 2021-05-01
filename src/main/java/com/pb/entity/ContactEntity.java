@@ -21,7 +21,7 @@ public class ContactEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="contact_id")
+	@Column(name = "contact_id")
 	@SequenceGenerator(name = "sequence_gen", sequenceName = "CONTACT_ID_SEQ", allocationSize = 1)
 	@GeneratedValue(generator = "sequence_gen")
 	protected Integer id;
@@ -34,11 +34,12 @@ public class ContactEntity implements Serializable {
 
 	@CreationTimestamp
 	@Temporal(TemporalType.DATE)
-	@Column(name = "CREATED_DATE")
+	@Column(name = "CREATED_DATE", updatable = false)
 	protected Date createdDate;
+
 	@UpdateTimestamp
 	@Temporal(TemporalType.DATE)
-	@Column(name = "UPDATED_DATE")
+	@Column(name = "UPDATED_DATE", insertable = false)
 	protected Date updatedDate;
 
 	public Integer getId() {
