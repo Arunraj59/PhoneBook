@@ -24,11 +24,11 @@
 			<c:forEach items="${contacts}" var="contact" varStatus="index">
 				<tr>
 					<td>${index.count}</td>
-					<%-- <td>${contact.name}</td> --%>
+					<td>${contact.name}</td>
 					<td>${contact.emailAddress}</td>
 					<td>${contact.mobileNo}</td>
 					<td>
-						<a href="">Edit</a>
+						<a href="edit-contact?id=${contact.id}">Edit</a>
 						<a href="">Delete</a>
 					</td>
 				</tr>

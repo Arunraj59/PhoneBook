@@ -22,6 +22,16 @@ public class ContactServiceImpl implements ContactService {
 	@Override
 	@Transactional(readOnly = false)
 	public boolean saveContact(Contact contact) {
+		if (contact.getId() != null) {
+			Optional<ContactEntity> findById = repository.findById(contact.getId());
+			if (findById.isPresent()) {
+				ContactEntity entity = findById.get();
+				BeanUtils.copyProperties(contact, entity);
+				ContactEntity savedEntity = repository.save(entity);
+				return savedEntity.getId() != null;
+			}
+
+		}
 		ContactEntity entity = new ContactEntity();
 		BeanUtils.copyProperties(contact, entity);
 		ContactEntity savedEntity = repository.save(entity);
@@ -39,7 +49,7 @@ public class ContactServiceImpl implements ContactService {
 	@Transactional(readOnly = true)
 	public List<Contact> findAllContacts() {
 		List<ContactEntity> contactsEntity = repository.findAll();
-		List<Contact> contacts = contactsEntity.stream().map(entity->{
+		List<Contact> contacts = contactsEntity.stream().map(entity -> {
 			Contact contact = new Contact();
 			BeanUtils.copyProperties(entity, contact);
 			return contact;
@@ -54,8 +64,15 @@ public class ContactServiceImpl implements ContactService {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public Contact findByContactId(int id) {
 		Optional<ContactEntity> contact = repository.findById(id);
+		if (contact.isPresent()) {
+			ContactEntity entity = contact.get();
+			Contact c = new Contact();
+			BeanUtils.copyProperties(entity, c);
+			return c;
+		}
 		return null;
 	}
 

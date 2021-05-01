@@ -44,10 +44,12 @@
 	<h2>Save Contacts</h2>
 	<p><font color="green">${succMsg}</font></p>
 	<p><font color="red">${errMsg}</font></p>
+	<p><font color="green">${savedMsg}</font></p>
 	<div>
 		<form:form action="save-contact" modelAttribute="contact" method="POST">
 			<table>
 				<tr>
+					<form:hidden path="id"/>
 					<td>Contact Name: </td>
 					<td><form:input path="name"/></td>
 				</tr>
@@ -64,6 +66,7 @@
 					<td><input type="submit" value="Save"/></td>
 				</tr>
 			</table>
+			<a href="all-contacts">View All Contacts</a>
 		</form:form>
 	</div>
 </body>

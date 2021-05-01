@@ -28,7 +28,8 @@ public class ViewAllContactsController {
 
 	@RequestMapping(path = { "/edit-contact" }, method = { RequestMethod.GET })
 	public String editContact(@RequestParam("id") Integer contactId, ModelMap map) {
-		
-		return "redirect";
+		Contact contact = contactService.findByContactId(contactId);
+		map.addAttribute("contact", contact);
+		return "index";
 	}
 }

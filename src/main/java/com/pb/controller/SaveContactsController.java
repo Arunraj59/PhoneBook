@@ -28,10 +28,14 @@ public class SaveContactsController {
 	@RequestMapping(path= {"/save-contact"},method= {RequestMethod.POST})
 	public String saveContact(@ModelAttribute("contact") Contact contact,BindingResult errors, ModelMap map) {
 		boolean saveContact = contactService.saveContact(contact);
-		if(saveContact) {
+		if(saveContact && contact.getId() == null) {
 			map.addAttribute("succMsg", "Contact Saved Successfully");
 		}else {
 			map.addAttribute("errMag","Contact Saving Failed");
+		}
+		
+		if(contact.getId() != null){
+			map.addAttribute("savedMsg", "Contact Updated Succesfully");
 		}
 		return "index";
 	}
