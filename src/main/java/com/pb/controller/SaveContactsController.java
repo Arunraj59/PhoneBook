@@ -3,8 +3,6 @@ package com.pb.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,7 +25,7 @@ public class SaveContactsController {
 	}
 	
 	@RequestMapping(path= {"/save-contact"},method= {RequestMethod.POST})
-	public String saveContact(@ModelAttribute("contact") Contact contact,BindingResult errors,RedirectAttributes map) {
+	public String saveContact(@ModelAttribute("contact") Contact contact,RedirectAttributes map) {
 		boolean saveContact = contactService.saveContact(contact);
 		if(saveContact && contact.getId() == null) {
 			map.addFlashAttribute("succMsg", "Contact Saved Successfully");
