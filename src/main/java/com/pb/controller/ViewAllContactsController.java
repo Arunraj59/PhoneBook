@@ -6,9 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.pb.model.Contact;
 import com.pb.service.ContactService;
@@ -31,5 +33,16 @@ public class ViewAllContactsController {
 		Contact contact = contactService.findByContactId(contactId);
 		map.addAttribute("contact", contact);
 		return "index";
+	}
+
+	@RequestMapping(path= {"/delete-contact"}, method= {RequestMethod.GET})
+	public String deleteContact(@RequestParam("cid") Integer cid, RedirectAttributes model) {
+		boolean isDeleted = contactService.deleteContact(cid);
+		if(isDeleted) {
+			model.addFlashAttribute("deletedMsg", "contact deleted Succesfully");
+		}else {
+			model.addFlashAttribute("deletedFailMsg", "unable to delete contact");
+		}
+		return "redirect:/all-contacts";
 	}
 }

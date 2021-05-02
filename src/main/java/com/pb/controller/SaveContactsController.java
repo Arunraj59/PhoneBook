@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.pb.model.Contact;
 import com.pb.service.ContactService;
@@ -26,18 +27,18 @@ public class SaveContactsController {
 	}
 	
 	@RequestMapping(path= {"/save-contact"},method= {RequestMethod.POST})
-	public String saveContact(@ModelAttribute("contact") Contact contact,BindingResult errors, ModelMap map) {
+	public String saveContact(@ModelAttribute("contact") Contact contact,BindingResult errors,RedirectAttributes map) {
 		boolean saveContact = contactService.saveContact(contact);
 		if(saveContact && contact.getId() == null) {
-			map.addAttribute("succMsg", "Contact Saved Successfully");
+			map.addFlashAttribute("succMsg", "Contact Saved Successfully");
 		}else {
-			map.addAttribute("errMag","Contact Saving Failed");
+			map.addFlashAttribute("errMag","Contact Saving Failed");
 		}
 		
 		if(contact.getId() != null){
-			map.addAttribute("savedMsg", "Contact Updated Succesfully");
+			map.addFlashAttribute("savedMsg", "Contact Updated Succesfully");
 		}
-		return "index";
+		return "redirect:/contacts";
 	}
 
 }

@@ -41,8 +41,13 @@ public class ContactServiceImpl implements ContactService {
 	@Override
 	@Transactional(readOnly = false)
 	public boolean deleteContact(int contactId) {
-		repository.deleteById(contactId);
-		return false;
+		boolean flag = true;
+		try {
+			repository.deleteById(contactId);
+		}catch(Exception e) {
+			flag = false;
+		}
+		return flag;
 	}
 
 	@Override
